@@ -41,6 +41,7 @@ public class YBPSimulator implements ActionListener{
   BufferedReader br = null;
   InputStream is = null;
   String currentLine;
+  List<String> monstersLines, spellsLines, trapsLines, extraLines, tributeLines;
   InputStreamReader isr = null;
   String[] types = {"# of Monsters", "#of Tributes", "# of Spells","# of Traps","# of ExtraDeck"};
   private ArrayList<String> database = new ArrayList<String>();
@@ -49,15 +50,15 @@ public class YBPSimulator implements ActionListener{
   
   public JPanel createContentPane() {
     try {
-  List<String> monstersLines = Files.readAllLines(Paths.get(this.getClass().getResource("monsters.txt").toURI()), Charset.defaultCharset());
+  monstersLines = Files.readAllLines(Paths.get(this.getClass().getResource("/resources/monsters.txt").toURI()), Charset.defaultCharset());
   monstersNum = monstersLines.size();
-  List<String> spellsLines = Files.readAllLines(Paths.get(this.getClass().getResource("spells.txt").toURI()), Charset.defaultCharset());
+  spellsLines = Files.readAllLines(Paths.get(this.getClass().getResource("/resources/spells.txt").toURI()), Charset.defaultCharset());
   spellsNum = spellsLines.size();
-  List<String> trapsLines = Files.readAllLines(Paths.get(this.getClass().getResource("traps.txt").toURI()), Charset.defaultCharset());
+  trapsLines = Files.readAllLines(Paths.get(this.getClass().getResource("/resources/traps.txt").toURI()), Charset.defaultCharset());
   trapsNum = trapsLines.size();
-  List<String> extraLines = Files.readAllLines(Paths.get(this.getClass().getResource("extra.txt").toURI()), Charset.defaultCharset());
+  extraLines = Files.readAllLines(Paths.get(this.getClass().getResource("/resources/extra.txt").toURI()), Charset.defaultCharset());
   extraNum = extraLines.size();
-  List<String> tributeLines = Files.readAllLines(Paths.get(this.getClass().getResource("tribute.txt").toURI()), Charset.defaultCharset());
+  tributeLines = Files.readAllLines(Paths.get(this.getClass().getResource("/resources/tribute.txt").toURI()), Charset.defaultCharset());
   tributeNum = tributeLines.size();
   } catch (URISyntaxException | IOException e) {
       
