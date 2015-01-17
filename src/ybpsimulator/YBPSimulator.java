@@ -7,13 +7,12 @@ package ybpsimulator;
 import java.util.Random;
 import java.util.List;
 import javax.swing.*;
-import java.awt.Color;
+//import java.awt.Color;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
-import java.io.*;
 import java.io.BufferedReader;
 //import java.io.BufferedWriter;
-import java.io.FileReader;
+//import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.File;
 import java.io.IOException;
@@ -23,6 +22,9 @@ import java.nio.file.Paths;
 import java.util.Arrays;
 import java.nio.file.Files;
 import java.nio.charset.Charset;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.net.URISyntaxException;
 
 
 /**
@@ -37,7 +39,9 @@ public class YBPSimulator implements ActionListener{
   int monstersNum, spellsNum, trapsNum, extraNum, tributeNum, monsI, spelI, trapI, extrI, tribI, currentFile = 1;
   boolean yetToExist = true;
   BufferedReader br = null;
+  InputStream is = null;
   String currentLine;
+  InputStreamReader isr = null;
   String[] types = {"# of Monsters", "#of Tributes", "# of Spells","# of Traps","# of ExtraDeck"};
   private ArrayList<String> database = new ArrayList<String>();
   Random rand = new Random();
@@ -45,18 +49,18 @@ public class YBPSimulator implements ActionListener{
   
   public JPanel createContentPane() {
     try {
-  List<String> monstersLines = Files.readAllLines(Paths.get("monsters.txt"), Charset.defaultCharset());
+  List<String> monstersLines = Files.readAllLines(Paths.get(this.getClass().getResource("monsters.txt").toURI()), Charset.defaultCharset());
   monstersNum = monstersLines.size();
-  List<String> spellsLines = Files.readAllLines(Paths.get("spells.txt"), Charset.defaultCharset());
+  List<String> spellsLines = Files.readAllLines(Paths.get(this.getClass().getResource("spells.txt").toURI()), Charset.defaultCharset());
   spellsNum = spellsLines.size();
-  List<String> trapsLines = Files.readAllLines(Paths.get("traps.txt"), Charset.defaultCharset());
+  List<String> trapsLines = Files.readAllLines(Paths.get(this.getClass().getResource("traps.txt").toURI()), Charset.defaultCharset());
   trapsNum = trapsLines.size();
-  List<String> extraLines = Files.readAllLines(Paths.get("extra.txt"), Charset.defaultCharset());
+  List<String> extraLines = Files.readAllLines(Paths.get(this.getClass().getResource("extra.txt").toURI()), Charset.defaultCharset());
   extraNum = extraLines.size();
-  List<String> tributeLines = Files.readAllLines(Paths.get("tribute.txt"), Charset.defaultCharset());
+  List<String> tributeLines = Files.readAllLines(Paths.get(this.getClass().getResource("tribute.txt").toURI()), Charset.defaultCharset());
   tributeNum = tributeLines.size();
-  } catch (IOException e) {
-            e.printStackTrace();
+  } catch (URISyntaxException | IOException e) {
+      
   }
   while (yetToExist)
   {
@@ -65,7 +69,7 @@ public class YBPSimulator implements ActionListener{
       try {
       check.createNewFile();
       } catch (IOException e) {
-        e.printStackTrace();
+        
       }
       yetToExist = false;
     }
@@ -162,6 +166,7 @@ public class YBPSimulator implements ActionListener{
     return pick;
   }
   
+  @Override
    public void actionPerformed(ActionEvent e) {
      if (e.getSource() == gen)
     {
@@ -170,25 +175,35 @@ public class YBPSimulator implements ActionListener{
    }
    
    public void importFile(File filename) {
+       try {
+           is = getClass().getResourceAsStream("/resources/" + filename);
+           isr = new InputStreamReader(is);
+           br = new BufferedReader(isr);
+       } catch (Exception e) {
+           
+       }
+       
      database.clear();
     try {
-      br = new BufferedReader(new FileReader(filename));
+//      br = new BufferedReader(new FileReader(filename));
       currentLine = br.readLine();
       database.add(currentLine);
       while ((currentLine = br.readLine()) != null) {
         database.add(currentLine);
       }
-      
+      isr.close();
+      is.close();
     } catch (IOException e) {
-      e.printStackTrace();
+        
     } finally {
       try {
         if (br != null)br.close();
       } catch (IOException ex) {
-        ex.printStackTrace();
+        
       }
-    } 
-  }
+    }
+   }
+
    
    public void generate() {
      FileWriter fw;
@@ -199,7 +214,6 @@ public class YBPSimulator implements ActionListener{
        tribI = Integer.parseInt(trib.getText());
        extrI = Integer.parseInt(extr.getText());
      } catch (Exception e) {
-    e.printStackTrace();
      }
      try {
        fw = new FileWriter(new File("rand" + currentFile + ".ydk"));
@@ -241,7 +255,6 @@ public class YBPSimulator implements ActionListener{
        }
        fw.close();
        } catch (IOException ex) {
-            ex.printStackTrace();
         }
        currentFile++;
    }
@@ -262,10 +275,18 @@ public class YBPSimulator implements ActionListener{
   
  public static void main(String[] args) {
    
-    SwingUtilities.invokeLater(new Runnable() {
-      public void run() {
+    SwingUtilities.invokeLater(() -> {
         createAndShowGUI();
-      }
     });
   }
+ 
+// public static void main(String[] args) {
+//   
+//    SwingUtilities.invokeLater(new Runnable() {
+//      @Override
+//      public void run() {
+//        createAndShowGUI();
+//      }
+//    });
+//  }
 }
