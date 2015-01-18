@@ -4,6 +4,9 @@
  * and open the template in the editor.
  */
 package ybpsimulator;
+import java.awt.Dimension;
+import java.awt.FlowLayout;
+import java.awt.GridLayout;
 import java.util.Random;
 import java.util.List;
 import javax.swing.*;
@@ -18,39 +21,34 @@ import java.io.File;
 import java.io.IOException;
 //import java.util.Scanner;
 import java.util.ArrayList;
-import java.nio.file.Paths;
 import java.util.Arrays;
-import java.nio.file.Files;
 //import java.nio.charset.Charset;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.net.URI;
-import java.net.URISyntaxException;
-import java.nio.file.FileSystem;
-import java.nio.file.FileSystems;
 import java.nio.file.Path;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 
 /**
  *
  * @author Taiga Vo
  */
-public class YBPSimulator implements ActionListener{
-  private JPanel screenPanel;
-  private JButton gen;
-  private JLabel monsLabel, spelLabel, trapLabel, extrLabel, tribLabel, label;
+public class YBPSimulator extends JPanel implements ActionListener{
+  JButton gen;
+  JLabel monsLabel, spelLabel, trapLabel, extrLabel, tribLabel, label;
   JTextField mons, spel, trap, extr, trib;
+  ArrayList<JLabel> BPlabels = new ArrayList<JLabel>();
+  ArrayList<JTextField> BPtext = new ArrayList<JTextField>();
+  
+  
+  
   int monstersNum, spellsNum, trapsNum, extraNum, tributeNum, monsI, spelI, trapI, extrI, tribI, currentFile = 1;
   boolean yetToExist = true;
   BufferedReader br = null;
-  
+  JComboBox play;
 
   InputStream is = null;
   String currentLine;
+  String[] playTypes = {"Battle Play","Booster Packs"};
   List<String> monstersLines, spellsLines, trapsLines, extraLines, tributeLines;
   InputStreamReader isr = null;
   String[] types = {"# of Monsters", "#of Tributes", "# of Spells","# of Traps","# of ExtraDeck"};
@@ -58,9 +56,9 @@ public class YBPSimulator implements ActionListener{
   Random rand = new Random();
   Path resourcePath;
   
-  
-  public JPanel createContentPane(){
-    monstersNum = readNumLines("monsters.txt");
+  public YBPSimulator() {
+    super(new FlowLayout());
+  monstersNum = readNumLines("monsters.txt");
   spellsNum = readNumLines("spells.txt");
   trapsNum = readNumLines("traps.txt");
   extraNum = readNumLines("extra.txt");
@@ -76,89 +74,76 @@ public class YBPSimulator implements ActionListener{
       currentFile += 1;
     }
     
-  }
-  
-    JPanel gui = new JPanel();
-    gui.setLayout(null);
+    }
     
-    screenPanel = new JPanel();
-    screenPanel.setLayout(null);
-    screenPanel.setSize(200, 300);
-    gui.add(screenPanel);
+    JTabbedPane tabbedPane = new JTabbedPane();
+    JComponent sp = makeTextPanel("");
+      Icon icon = null;
+    tabbedPane.addTab("Sealed Play", icon, sp,"");
+    JComponent bp = makeTextPanel("");
+    tabbedPane.addTab("Booster Packs", icon, bp,"");
+    add(tabbedPane);
     
     for (String type : types) {
       label = new JLabel(type);
-      label.setLocation(10,15+Arrays.asList(types).indexOf(type)*25);
-      label.setSize(100,20);
-      screenPanel.add(label);
-      
+//      label.setLocation(10,60+Arrays.asList(types).indexOf(type)*25);
+//      label.setSize(100,20);
+      sp.add(label);
     }
-//    monsLabel = new JLabel("# of Monsters");
-//    monsLabel.setLocation(10,15);
-//    monsLabel.setSize(100,20);
-//    screenPanel.add(monsLabel);
+    
     
     mons = new JTextField("17");
-    mons.setLocation(105,15);
-    mons.setSize(30,20);
-    screenPanel.add(mons);
+//    mons.setLocation(105,60);
+//    mons.setSize(30,20);
+    sp.add(mons);
     mons.addActionListener(this);
-    
-//    monsLabel = new JLabel("# of Tributes");
-//    monsLabel.setLocation(10,40);
-//    monsLabel.setSize(100,20);
-//    screenPanel.add(monsLabel);
+    BPtext.add(mons);
     
     trib = new JTextField("4");
-    trib.setLocation(105,40);
-    trib.setSize(30,20);
-    screenPanel.add(trib);
+//    trib.setLocation(105,85);
+//    trib.setSize(30,20);
+    sp.add(trib);
     trib.addActionListener(this);
-    
-//    monsLabel = new JLabel("# of Spells");
-//    monsLabel.setLocation(10,65);
-//    monsLabel.setSize(100,20);
-//    screenPanel.add(monsLabel);
+    BPtext.add(trib);
     
     spel = new JTextField("10");
-    spel.setLocation(105,65);
-    spel.setSize(30,20);
-    screenPanel.add(spel);
+//    spel.setLocation(105,110);
+//    spel.setSize(30,20);
+    sp.add(spel);
     spel.addActionListener(this);
-    
-//    monsLabel = new JLabel("# of Traps");
-//    monsLabel.setLocation(10,90);
-//    monsLabel.setSize(100,20);
-//    screenPanel.add(monsLabel);
+    BPtext.add(spel);
     
     trap = new JTextField("9");
-    trap.setLocation(105,90);
-    trap.setSize(30,20);
-    screenPanel.add(trap);
+//    trap.setLocation(105,135);
+//    trap.setSize(30,20);
+    sp.add(trap);
     trap.addActionListener(this);
-    
-//    monsLabel = new JLabel("# of ExtraDeck");
-//    monsLabel.setLocation(10,115);
-//    monsLabel.setSize(100,20);
-//    screenPanel.add(monsLabel);
+    BPtext.add(trap);
     
     extr = new JTextField("15");
-    extr.setLocation(105,115);
-    extr.setSize(30,20);
-    screenPanel.add(extr);
+//    extr.setLocation(105,160);
+//    extr.setSize(30,20);
+    sp.add(extr);
     extr.addActionListener(this);
+    BPtext.add(extr);
     
     gen = new JButton("Generate");
-    gen.setLocation(40, 215);
-    gen.setSize(100, 30);
-    screenPanel.add(gen);
+//    gen.setLocation(75, 305);
+//    gen.setSize(100, 30);
+    sp.add(gen);
     gen.addActionListener(this);
     
-    gui.setOpaque(true);
-    return gui;
   }
   
-  
+    protected JComponent makeTextPanel(String text) {
+        JPanel panel = new JPanel(false);
+        JLabel filler = new JLabel(text);
+        filler.setHorizontalAlignment(JLabel.CENTER);
+        panel.setLayout(new GridLayout(1, 1));
+        panel.add(filler);
+        return panel;
+    }
+    
   public int readNumLines(String file) {
       String line;
       int x = 0;
@@ -192,6 +177,33 @@ public class YBPSimulator implements ActionListener{
     {
       generate();
     }
+   }
+   
+   public void showBattlePlay() {
+       removeAll();
+       for (String type : types) {
+        label = new JLabel(type);
+        label.setLocation(10,60+Arrays.asList(types).indexOf(type)*25);
+//        label.setSize(100,20);
+        add(label);
+        }
+       for (JTextField text: BPtext) {
+           add(text);
+       }
+       GUImain();
+   }
+   
+   public void showBoosterPack() {
+       removeAll();
+       
+       GUImain();
+   }
+   
+   public void GUImain() {
+       add(gen);
+       add(play);
+       validate();
+       repaint();
    }
    
    public void importFile(File filename) {
@@ -282,16 +294,21 @@ public class YBPSimulator implements ActionListener{
    
   private static void createAndShowGUI() {
     
-    JFrame.setDefaultLookAndFeelDecorated(false);
+    JFrame.setDefaultLookAndFeelDecorated(true);
     JFrame frame = new JFrame("Yugioh Battle Pack Simulator");
     
-    YBPSimulator yBPSimulator = new YBPSimulator();
-    frame.setContentPane(yBPSimulator.createContentPane());
+//    JComponent yBPSimulator = new YBPSimulator();
+//    yBPSimulator.setOpaque(true);
+//    frame.setContentPane(yBPSimulator);
     
     frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-    frame.setSize(200, 300);
-    frame.setLocation(600,300);
+//    frame.setSize(300, 400);
+    frame.pack();
+    frame.setMinimumSize(new Dimension(350, 250));
+    frame.setLocation(650,400);
     frame.setVisible(true);
+//    frame.setLocationRelativeTo(null);
+    frame.add(new YBPSimulator());
   }
   
  public static void main(String[] args) {
