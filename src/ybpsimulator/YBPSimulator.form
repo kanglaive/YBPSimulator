@@ -102,30 +102,32 @@
                           <Group type="102" attributes="0">
                               <EmptySpace max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
-                                  <Group type="102" alignment="0" attributes="0">
-                                      <Component id="jLabel5" min="-2" max="-2" attributes="0"/>
-                                      <EmptySpace max="32767" attributes="0"/>
-                                      <Component id="textField2" min="-2" max="-2" attributes="0"/>
-                                  </Group>
-                                  <Group type="102" alignment="0" attributes="0">
-                                      <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
-                                      <EmptySpace max="32767" attributes="0"/>
-                                      <Component id="textField1" min="-2" max="-2" attributes="0"/>
-                                  </Group>
                                   <Group type="102" attributes="0">
                                       <Component id="jLabel6" min="-2" max="-2" attributes="0"/>
-                                      <EmptySpace pref="186" max="32767" attributes="0"/>
+                                      <EmptySpace max="32767" attributes="0"/>
                                       <Component id="textField5" min="-2" max="-2" attributes="0"/>
                                   </Group>
-                                  <Group type="102" attributes="0">
-                                      <Component id="jLabel3" min="-2" max="-2" attributes="0"/>
+                                  <Group type="102" alignment="1" attributes="0">
+                                      <Group type="103" groupAlignment="0" attributes="0">
+                                          <Component id="jLabel2" alignment="0" min="-2" max="-2" attributes="0"/>
+                                          <Component id="jLabel5" alignment="0" min="-2" max="-2" attributes="0"/>
+                                      </Group>
                                       <EmptySpace max="32767" attributes="0"/>
-                                      <Component id="textField3" min="-2" max="-2" attributes="0"/>
+                                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                          <Component id="textField2" max="32767" attributes="0"/>
+                                          <Component id="textField1" max="32767" attributes="0"/>
+                                      </Group>
                                   </Group>
-                                  <Group type="102" attributes="0">
-                                      <Component id="jLabel4" min="-2" max="-2" attributes="0"/>
-                                      <EmptySpace max="32767" attributes="0"/>
-                                      <Component id="textField4" min="-2" max="-2" attributes="0"/>
+                                  <Group type="102" alignment="1" attributes="0">
+                                      <Group type="103" groupAlignment="0" attributes="0">
+                                          <Component id="jLabel3" alignment="0" min="-2" max="-2" attributes="0"/>
+                                          <Component id="jLabel4" alignment="0" min="-2" max="-2" attributes="0"/>
+                                      </Group>
+                                      <EmptySpace min="246" max="32767" attributes="0"/>
+                                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                          <Component id="textField4" max="32767" attributes="0"/>
+                                          <Component id="textField3" max="32767" attributes="0"/>
+                                      </Group>
                                   </Group>
                               </Group>
                           </Group>
@@ -211,7 +213,7 @@
             </Component>
             <Component class="java.awt.TextField" name="textField1">
               <Properties>
-                <Property name="text" type="java.lang.String" value="textField1"/>
+                <Property name="text" type="java.lang.String" value="17"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="textField1ActionPerformed"/>
@@ -219,22 +221,23 @@
             </Component>
             <Component class="java.awt.TextField" name="textField2">
               <Properties>
-                <Property name="text" type="java.lang.String" value="textField2"/>
+                <Property name="name" type="java.lang.String" value="" noResource="true"/>
+                <Property name="text" type="java.lang.String" value="4"/>
               </Properties>
             </Component>
             <Component class="java.awt.TextField" name="textField3">
               <Properties>
-                <Property name="text" type="java.lang.String" value="textField3"/>
+                <Property name="text" type="java.lang.String" value="10"/>
               </Properties>
             </Component>
             <Component class="java.awt.TextField" name="textField4">
               <Properties>
-                <Property name="text" type="java.lang.String" value="textField4"/>
+                <Property name="text" type="java.lang.String" value="9"/>
               </Properties>
             </Component>
             <Component class="java.awt.TextField" name="textField5">
               <Properties>
-                <Property name="text" type="java.lang.String" value="textField5"/>
+                <Property name="text" type="java.lang.String" value="15"/>
               </Properties>
             </Component>
           </SubComponents>
@@ -251,20 +254,21 @@
           <Layout>
             <DimensionLayout dim="0">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" alignment="0" attributes="0">
+                  <Group type="102" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="StarStrikeBlast" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="51" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Group type="102" attributes="0">
+                          <Group type="102" alignment="0" attributes="0">
+                              <Component id="checkbox1" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="51" max="-2" attributes="0"/>
                               <Component id="jButton2" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace max="32767" attributes="0"/>
+                              <EmptySpace pref="166" max="32767" attributes="0"/>
                           </Group>
                           <Group type="102" attributes="0">
-                              <Component id="checkbox2" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace pref="51" max="32767" attributes="0"/>
-                              <Component id="checkbox3" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace min="-2" pref="50" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Component id="checkbox2" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  <Component id="checkbox3" alignment="0" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                           </Group>
                       </Group>
                   </Group>
@@ -274,12 +278,12 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="1" attributes="0">
-                          <Component id="checkbox3" min="-2" max="-2" attributes="0"/>
-                          <Component id="checkbox2" min="-2" max="-2" attributes="0"/>
-                          <Component id="StarStrikeBlast" min="-2" max="-2" attributes="0"/>
-                      </Group>
-                      <EmptySpace pref="188" max="32767" attributes="0"/>
+                      <Component id="checkbox1" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="28" max="-2" attributes="0"/>
+                      <Component id="checkbox2" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="33" max="-2" attributes="0"/>
+                      <Component id="checkbox3" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace pref="87" max="32767" attributes="0"/>
                       <Component id="jButton2" min="-2" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="23" max="-2" attributes="0"/>
                   </Group>
@@ -287,19 +291,19 @@
             </DimensionLayout>
           </Layout>
           <SubComponents>
-            <Component class="java.awt.Checkbox" name="StarStrikeBlast">
+            <Component class="java.awt.Checkbox" name="checkbox1">
               <Properties>
-                <Property name="label" type="java.lang.String" value="checkbox1"/>
+                <Property name="label" type="java.lang.String" value="StarStrike Blast"/>
               </Properties>
             </Component>
             <Component class="java.awt.Checkbox" name="checkbox2">
               <Properties>
-                <Property name="label" type="java.lang.String" value="checkbox2"/>
+                <Property name="label" type="java.lang.String" value="Duelist Revolution"/>
               </Properties>
             </Component>
             <Component class="java.awt.Checkbox" name="checkbox3">
               <Properties>
-                <Property name="label" type="java.lang.String" value="checkbox3"/>
+                <Property name="label" type="java.lang.String" value="The Shining Darkness"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JButton" name="jButton2">
