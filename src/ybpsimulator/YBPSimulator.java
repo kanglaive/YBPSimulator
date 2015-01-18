@@ -25,7 +25,14 @@ import java.nio.file.Files;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.URI;
-//import java.net.URISyntaxException;
+import java.net.URISyntaxException;
+import java.nio.file.FileSystem;
+import java.nio.file.FileSystems;
+import java.nio.file.Path;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 
 /**
@@ -40,6 +47,8 @@ public class YBPSimulator implements ActionListener{
   int monstersNum, spellsNum, trapsNum, extraNum, tributeNum, monsI, spelI, trapI, extrI, tribI, currentFile = 1;
   boolean yetToExist = true;
   BufferedReader br = null;
+  
+
   InputStream is = null;
   String currentLine;
   List<String> monstersLines, spellsLines, trapsLines, extraLines, tributeLines;
@@ -47,24 +56,15 @@ public class YBPSimulator implements ActionListener{
   String[] types = {"# of Monsters", "#of Tributes", "# of Spells","# of Traps","# of ExtraDeck"};
   private ArrayList<String> database = new ArrayList<String>();
   Random rand = new Random();
+  Path resourcePath;
   
   
   public JPanel createContentPane(){
-      try {
-//  monstersLines = Files.readAllLines(Paths.get(this.getClass().getResource("/resources/monsters.txt").toURI()), Charset.defaultCharset());
-    monstersNum = (int) readNumLines(this.getClass().getResource("/resources/monsters.txt").toURI());
-//  monstersNum = (int) readNumLines(this.getClass().getResource("/resources/monsters.txt").toString());
-//  spellsLines = Files.readAllLines(Paths.get(this.getClass().getResource("/resources/spells.txt").toURI()), Charset.defaultCharset());
-  spellsNum = (int) readNumLines(this.getClass().getResource("/resources/spells.txt").toURI());
-//  trapsLines = Files.readAllLines(Paths.get(this.getClass().getResource("/resources/traps.txt").toURI()), Charset.defaultCharset());
-  trapsNum = (int) readNumLines(this.getClass().getResource("/resources/traps.txt").toURI());
-//  extraLines = Files.readAllLines(Paths.get(this.getClass().getResource("/resources/extra.txt").toURI()), Charset.defaultCharset());
-  extraNum = (int) readNumLines(this.getClass().getResource("/resources/extra.txt").toURI());
-//  tributeLines = Files.readAllLines(Paths.get(this.getClass().getResource("/resources/tribute.txt").toURI()), Charset.defaultCharset());
-  tributeNum = (int) readNumLines(this.getClass().getResource("/resources/tribute.txt").toURI());
-      } catch (Exception e) {
-          
-      }
+    monstersNum = readNumLines("monsters.txt");
+  spellsNum = readNumLines("spells.txt");
+  trapsNum = readNumLines("traps.txt");
+  extraNum = readNumLines("extra.txt");
+  tributeNum = readNumLines("tribute.txt");
   
   while (yetToExist)
   {
@@ -163,8 +163,25 @@ public class YBPSimulator implements ActionListener{
     return gui;
   }
   
-  public long readNumLines(URI filename) throws IOException {
-      long x = Files.newBufferedReader(Paths.get(filename)).lines().count();
+  
+  public int readNumLines(String file) {
+      String line;
+      int x = 0;
+      try {
+      is = getClass().getResourceAsStream("/resources/" + file);
+      isr = new InputStreamReader(is);
+      br = new BufferedReader(isr);
+      while ((line = br.readLine()) != null) {
+          x++;
+      }
+      
+      br.close();
+      isr.close();
+      is.close();
+      } catch (Exception e) {
+          
+      }
+      
       return x;
   }
 
