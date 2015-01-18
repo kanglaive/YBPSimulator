@@ -70,11 +70,6 @@ public class YBPSimulator implements ActionListener{
   {
     File check = new File("rand" + currentFile + ".ydk");
     if (!check.exists()) {
-      try {
-      check.createNewFile();
-      } catch (IOException e) {
-        
-      }
       yetToExist = false;
     }
     else {
